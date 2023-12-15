@@ -29,3 +29,17 @@ messaging.onBackgroundMessage(function (payload) {
   };
   return self.registration.showNotification(title, options);
 });
+
+// service-worker.js
+
+// 监听 notificationclick 事件
+self.addEventListener('notificationclick', (event) => {
+  console.log(event)
+  window.open('https://pwa-notification-test-iota.vercel.app/', '_blank');
+  // 判断点击的是哪个按钮
+  // if (event.action === 'yes') {
+  //     console.log('yes');
+  // } else if (event.action === 'no') {
+  //     console.log('no');
+  // }
+});
