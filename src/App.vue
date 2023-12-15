@@ -15,14 +15,8 @@ getToken(messaging, {
   .then((currentToken) => {
     if (currentToken) {
       console.log("Token received: ", currentToken);
-
-      navigator.serviceWorker.getRegistration().then((registration) => {
-        registration.showNotification("Notification Title", {
-          body: "Notification Body",
-          icon: "/path/to/icon.png",
-        });
-      });
       // 处理获取到的令牌
+      showNotification();
     } else {
       console.log(
         "No registration token available. Request permission to generate one."
@@ -47,6 +41,22 @@ export default {
     HelloWorld,
   },
 };
+
+function showNotification() {
+  Notification.requestPermission().then((result) => {
+    console.log(result)
+    if (result === "granted") {
+      navigator.serviceWorker.ready.then((registration) => {
+        registration.showNotification("Vibration Sample", {
+          body: "Buzz! Buzz!",
+          icon: "../images/touch/chrome-touch-icon-192x192.png",
+          vibrate: [200, 100, 200, 100, 200, 100, 200],
+          tag: "vibration-sample",
+        });
+      });
+    }
+  });
+}
 </script>
 
 <style>
