@@ -20,6 +20,8 @@ firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
 
+console.log(messaging)
+
 messaging.onBackgroundMessage(function (payload) {
   console.log(payload)
   const title = payload.notification.title;
