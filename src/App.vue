@@ -1,5 +1,6 @@
 <template>
   <HelloWorld></HelloWorld>
+  <button @click="_requestPermission()">開啟推播</button>
   <button @click="_showNotification()">測試推播</button>
 </template>
 <script>
@@ -41,6 +42,9 @@ export default {
     HelloWorld,
   },
   methods: {
+    _requestPermission(){
+      Notification.requestPermission();
+    },
     _showNotification() {
       Notification.requestPermission().then((result) => {
         if (result === "granted") {
