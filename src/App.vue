@@ -41,6 +41,10 @@ export default {
   },
 };
 
+self.registration.showNotification("Notification Title", {
+  body: "payload",
+});
+
 </script>
 
 <style>
