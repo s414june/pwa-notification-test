@@ -1,6 +1,6 @@
 <template>
   <HelloWorld></HelloWorld>
-  <button @click="showNotification()"></button>
+  <button @click="_showNotification()">測試推播</button>
 </template>
 <script>
 import HelloWorld from "./components/HelloWorld.vue";
@@ -41,11 +41,11 @@ export default {
     HelloWorld,
   },
   methods: {
-    showNotification() {
+    _showNotification() {
       Notification.requestPermission().then((result) => {
         if (result === "granted") {
           navigator.serviceWorker.ready.then((registration) => {
-            console.log(result);
+            console.log(registration);
             registration.showNotification("Vibration Sample", {
               body: "Buzz! Buzz!",
               icon: "../images/touch/chrome-touch-icon-192x192.png",
