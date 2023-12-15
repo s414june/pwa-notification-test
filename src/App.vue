@@ -1,7 +1,7 @@
 <script>
 import HelloWorld from "./components/HelloWorld.vue";
 import { messaging } from "./firebaseInit";
-import { getToken } from "firebase/messaging";
+import { onMessage, getToken } from "firebase/messaging";
 
 export default {
   name: "App",
@@ -29,7 +29,7 @@ export default {
       });
 
     // 訂閱消息
-    messaging.onMessage((payload) => {
+    onMessage((payload) => {
       console.log("Message received. ", payload);
       // 處理接收到的消息
     });
