@@ -31,6 +31,7 @@ messaging.onBackgroundMessage(function (payload) {
 });
 
 self.addEventListener('push', function(event) {
+  alert(123)
   const payload = event.data ? event.data.text() : 'no payload';
   event.waitUntil(
     self.registration.showNotification('Notification Title', {
