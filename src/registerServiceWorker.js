@@ -8,7 +8,7 @@ import { onMessage, getToken } from "firebase/messaging";
 getToken(messaging, {
   vapidKey:
     "BOAw5pQGmd4WaIplh_GRbO7Lz0GT3d3A8qu0v-wq5jG5SQKdWPZswUWYi5BB2Rb27U0B6Bjoi1Qt4mevxgpuhqc",
-  serviceWorkerRegistration: navigator.serviceWorker.register(
+  serviceWorkerRegistration: await navigator.serviceWorker.register(
     "/pwa-notification-test/firebase-messaging-sw.js"
   ),
 })
