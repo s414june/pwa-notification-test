@@ -1,5 +1,5 @@
-importScripts('https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/8.2.0/firebase-messaging.js');
+import firebase from 'firebase/app';
+import 'firebase/messaging';
 
 firebase.initializeApp({
   // 您的 Firebase 配置
