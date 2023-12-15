@@ -1,6 +1,7 @@
 <script>
 import HelloWorld from "./components/HelloWorld.vue";
 import { messaging } from "./firebaseInit";
+import { getToken } from "firebase/messaging";
 
 export default {
   name: "App",
@@ -9,19 +10,22 @@ export default {
   },
   created() {
     // 請求通知權限
-    messaging
-      .requestPermission()
-      .then(() => {
-        console.log("Notification permission granted.");
-        // 獲取並返回 FCM 注冊令牌
-        return messaging.getToken();
-      })
-      .then((token) => {
-        console.log(token);
-        // 使用這個令牌來向用戶發送通知
+
+    getToken(messaging, { vapidKey: "您的VAPID密钥" })
+      .then((currentToken) => {
+        if (currentToken) {
+          console.log("Token received: ", currentToken);
+          // 处理获取到的令牌
+        } else {
+          console.log(
+            "No registration token available. Request permission to generate one."
+          );
+          // 提示用户没有令牌可用，需要请求权限
+        }
       })
       .catch((err) => {
-        console.log("Unable to get permission to notify.", err);
+        console.log("An error occurred while retrieving token. ", err);
+        // 处理可能发生的错误
       });
 
     // 訂閱消息
