@@ -5,6 +5,28 @@
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import { messaging } from './firebaseInit';
+
+// 請求通知權限
+messaging.requestPermission()
+.then(function() {
+  console.log('Notification permission granted.');
+  // 獲取並返回 FCM 注冊令牌
+  return messaging.getToken();
+})
+.then(function(token) {
+  console.log(token);
+  // 使用這個令牌來向用戶發送通知
+})
+.catch(function(err) {
+  console.log('Unable to get permission to notify.', err);
+});
+
+// 訂閱消息
+messaging.onMessage((payload) => {
+  console.log('Message received. ', payload);
+  // 處理接收到的消息
+});
 
 export default {
   name: 'App',
@@ -12,6 +34,7 @@ export default {
     HelloWorld
   }
 }
+
 </script>
 
 <style>
