@@ -41,8 +41,11 @@ export default {
   },
 };
 
-self.registration.showNotification("Notification Title", {
-  body: "payload",
+navigator.serviceWorker.getRegistration().then(registration => {
+  registration.showNotification('Notification Title', {
+    body: 'Notification Body',
+    icon: '/path/to/icon.png'
+  });
 });
 
 </script>
