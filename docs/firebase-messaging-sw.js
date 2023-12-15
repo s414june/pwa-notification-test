@@ -15,9 +15,7 @@ const firebaseConfig = {
 };
 
 // 初始化 Firebase
-firebase.initializeApp({
-  // 您的 Firebase 配置
-});
+firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
 
