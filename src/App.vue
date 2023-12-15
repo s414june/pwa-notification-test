@@ -11,7 +11,10 @@ export default {
   created() {
     // 請求通知權限
 
-    getToken(messaging, { vapidKey: "您的VAPID密钥" })
+    getToken(messaging, {
+      vapidKey:
+        "BOAw5pQGmd4WaIplh_GRbO7Lz0GT3d3A8qu0v-wq5jG5SQKdWPZswUWYi5BB2Rb27U0B6Bjoi1Qt4mevxgpuhqc",
+    })
       .then((currentToken) => {
         if (currentToken) {
           console.log("Token received: ", currentToken);
