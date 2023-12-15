@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import "./registerServiceWorker";
 
-import firebase from "firebase/app";
+import  { initializeApp }  from "firebase/app";
 import "firebase/database";
 
 const firebaseConfig = {
@@ -14,9 +14,9 @@ const firebaseConfig = {
 	appId: "1:667279105190:web:b653b12ae2b15b4db3a867",
 	measurementId: "G-28EW5Q8N5D",
 };
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-const messaging = firebase.messaging();
+const messaging = app.messaging();
 
 messaging.usePublicVapidKey(
 	"BOAw5pQGmd4WaIplh_GRbO7Lz0GT3d3A8qu0v-wq5jG5SQKdWPZswUWYi5BB2Rb27U0B6Bjoi1Qt4mevxgpuhqc"
@@ -43,4 +43,5 @@ messaging.onMessage((payload) => {
 	// 在这里处理收到的推送消息，例如显示通知
 });
 
+App.config.globalProperties.$firebase = app;
 createApp(App).mount("#app");
