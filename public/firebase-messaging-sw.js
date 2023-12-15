@@ -20,10 +20,7 @@ firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
 
-console.log(messaging)
-
 messaging.onBackgroundMessage(function (payload) {
-  console.log(payload)
   const title = payload.notification.title;
   const options = {
     body: payload.notification.body,
@@ -31,4 +28,13 @@ messaging.onBackgroundMessage(function (payload) {
   };
 
   return self.registration.showNotification(title, options);
+});
+
+self.addEventListener('push', function(event) {
+  const payload = event.data ? event.data.text() : 'no payload';
+  event.waitUntil(
+    self.registration.showNotification('Notification Title', {
+      body: payload,
+    })
+  );
 });
