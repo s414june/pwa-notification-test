@@ -34,6 +34,7 @@ messaging.onBackgroundMessage(function (payload) {
 
 // 监听 notificationclick 事件
 self.addEventListener('notificationclick', (event) => {
+  alert(123)
   console.log(event)
   window.open('https://pwa-notification-test-iota.vercel.app/', '_blank');
   // 判断点击的是哪个按钮
