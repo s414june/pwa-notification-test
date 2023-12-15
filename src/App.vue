@@ -9,12 +9,25 @@ export default {
     HelloWorld,
   },
   created() {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/pwa-notification-test/firebase-messaging-sw.js")
+        .then((registration) => {
+          // Service Worker 注册成功
+          console.log("Service Worker 注册成功:", registration);
+        })
+        .catch((err) => {
+          // Service Worker 注册失败
+          console.log("Service Worker 注册失败:", err);
+        });
+    }
     // 請求通知權限
-
     getToken(messaging, {
       vapidKey:
         "BOAw5pQGmd4WaIplh_GRbO7Lz0GT3d3A8qu0v-wq5jG5SQKdWPZswUWYi5BB2Rb27U0B6Bjoi1Qt4mevxgpuhqc",
-         serviceWorkerRegistration: navigator.serviceWorker.register('/pwa-notification-test/firebase-messaging-sw.js')
+      serviceWorkerRegistration: navigator.serviceWorker.register(
+        "/pwa-notification-test/firebase-messaging-sw.js"
+      ),
     })
       .then((currentToken) => {
         if (currentToken) {
