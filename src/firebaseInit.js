@@ -1,5 +1,6 @@
-import firebase from 'firebase/app';
-import 'firebase/messaging';
+// Firebase v9+ 導入方式
+import { initializeApp } from 'firebase/app';
+import { getMessaging } from 'firebase/messaging';
 
 const firebaseConfig = {
 	apiKey: "AIzaSyDc7_KRggZySk2NLdlcEQGfAtOuyVC-REs",
@@ -11,8 +12,7 @@ const firebaseConfig = {
 	measurementId: "G-28EW5Q8N5D",
 };
 
-firebase.initializeApp(firebaseConfig);
-
-const messaging = firebase.messaging();
+const app = initializeApp(firebaseConfig);
+const messaging = getMessaging(app);
 
 export { messaging };
