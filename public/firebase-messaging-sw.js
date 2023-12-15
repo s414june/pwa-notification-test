@@ -20,7 +20,7 @@ firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
 
-messaging.onBackgroundMessage(messaging, function (payload) {
+messaging.onBackgroundMessage(function (payload) {
   const title = payload.notification.title;
   const options = {
     body: payload.notification.body,
