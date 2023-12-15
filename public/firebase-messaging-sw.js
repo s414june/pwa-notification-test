@@ -1,7 +1,8 @@
+/* eslint-disable no-undef */
 // 使用 importScripts 导入 Firebase 库
-importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js");
+importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js");
 importScripts(
-  "https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js"
+  "https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"
 );
 
 const firebaseConfig = {
