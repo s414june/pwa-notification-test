@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
 // 使用 importScripts 导入 Firebase 库
-importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js");
+importScripts(
+  "https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"
+);
 importScripts(
   "https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"
 );
@@ -21,7 +23,10 @@ firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage(function (payload) {
-  console.log('[firebase-messaging-sw.js] Received background message ', payload);
+  console.log(
+    "[firebase-messaging-sw.js] Received background message ",
+    payload
+  );
   const title = payload.notification.title;
   const options = {
     body: payload.notification.body,
@@ -33,14 +38,22 @@ messaging.onBackgroundMessage(function (payload) {
 // service-worker.js
 
 // 监听 notificationclick 事件
-self.addEventListener('notificationclick', (event) => {
-  console.log(event)
-  event.preventDefault();
-  window.open('https://pwa-notification-test-iota.vercel.app/', '_blank');
-  // 判断点击的是哪个按钮
-  // if (event.action === 'yes') {
-  //     console.log('yes');
-  // } else if (event.action === 'no') {
-  //     console.log('no');
-  // }
-});
+self.onnotificationclick = (event) => {
+  console.log("On notification click: ", event.notification.tag);
+  event.notification.close();
+
+  // This looks to see if the current is already open and
+  // focuses if it is
+  event.waitUntil(
+    clients
+      .matchAll({
+        type: "window",
+      })
+      .then((clientList) => {
+        for (const client of clientList) {
+          if (client.url === "/" && "focus" in client) return client.focus();
+        }
+        if (clients.openWindow) return clients.openWindow("/");
+      })
+  );
+};
