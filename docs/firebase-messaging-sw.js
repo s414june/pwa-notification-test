@@ -1,6 +1,8 @@
-// Firebase v9+ 導入方式
-import { initializeApp } from "firebase/app";
-import { getMessaging, onBackgroundMessage } from "firebase/messaging/sw";
+// 使用 importScripts 导入 Firebase 库
+importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js");
+importScripts(
+  "https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js"
+);
 
 const firebaseConfig = {
   apiKey: "AIzaSyDc7_KRggZySk2NLdlcEQGfAtOuyVC-REs",
@@ -12,10 +14,14 @@ const firebaseConfig = {
   measurementId: "G-28EW5Q8N5D",
 };
 
-const app = initializeApp(firebaseConfig);
-const messaging = getMessaging(app);
+// 初始化 Firebase
+firebase.initializeApp({
+  // 您的 Firebase 配置
+});
 
-onBackgroundMessage(messaging, function (payload) {
+const messaging = firebase.messaging();
+
+messaging.onBackgroundMessage(messaging, function (payload) {
   const title = payload.notification.title;
   const options = {
     body: payload.notification.body,
