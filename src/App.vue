@@ -3,6 +3,8 @@
   <button @click="_requestPermission()">開啟推播</button>
   <button @click="_showNotification()">測試推播</button>
   <button @click="_reload()">重新整理網頁</button>
+  <button @click="_clearCache()">清除快取並重新整理</button>
+  <p>頁面更新時間：{{ _refreshTime() }}</p>
 </template>
 <script>
 // import HelloWorld from "./components/HelloWorld.vue";
@@ -50,28 +52,34 @@ export default {
       Notification.requestPermission().then((result) => {
         if (result === "granted") {
           navigator.serviceWorker.ready.then((registration) => {
-            console.log(registration);
+            console.log("測試開始");
             registration.showNotification("測試通知", {
-              body: "叮叮叮叮",
-              icon: "/img/icon/android-chrome-192x192.png",
+              body: "叮叮噹　叮叮噹　鈴聲多響亮　你看他呀不避風霜　面容多麼慈祥！叮叮噹　叮叮噹　鈴聲多響亮　他給我們帶來幸福　大家喜洋洋",
+              icon: "/img/icon/icon-192.png",
               vibrate: [200, 100, 200, 100, 200, 100, 200], //震動
               tag: "vibration-sample",
               lang: "zh-tw",
-              sound: "/sound.mp3",
             });
           });
         }
       });
     },
-    // clearTime() {
-    //   let d = new Date();
-    //   let h = d.getHours();
-    //   let m = d.getMinutes();
-    //   let s = d.getSeconds();
-    //   return h + ":" + m + ":" + s;
-    // },
+    _refreshTime() {
+      let d = new Date();
+      let h = d.getHours();
+      let m = d.getMinutes();
+      let s = d.getSeconds();
+      return h + ":" + m + ":" + s;
+    },
     _reload() {
       window.location.reload();
+    },
+    _clearCache() {
+      if ("serviceWorker" in navigator && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({
+          action: "skipWaiting",
+        });
+      }
     },
   },
 };

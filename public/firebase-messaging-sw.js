@@ -30,34 +30,11 @@ messaging.onBackgroundMessage(function (payload) {
   const title = payload.notification.title;
   const options = {
     body: payload.notification.body,
-    icon: payload.notification.icon,
-    sound:'/sound.mp3'
+    // icon: payload.notification.icon,
+    icon: "/img/icon/icon-192.png",
   };
   return self.registration.showNotification(title, options);
 });
-
-// service-worker.js
-
-// // 监听 notificationclick 事件
-// self.onnotificationclick = (event) => {
-//   console.log("On notification click: ", event.notification.tag);
-//   event.notification.close();
-
-//   // This looks to see if the current is already open and
-//   // focuses if it is
-//   event.waitUntil(
-//     clients
-//       .matchAll({
-//         type: "window",
-//       })
-//       .then((clientList) => {
-//         for (const client of clientList) {
-//           if (client.url === "/" && "focus" in client) return client.focus();
-//         }
-//         if (clients.openWindow) return clients.openWindow("/");
-//       })
-//   );
-// };
 
 // 註冊推播通知事件處理程序
 self.addEventListener("notificationclick", function (event) {
@@ -65,19 +42,30 @@ self.addEventListener("notificationclick", function (event) {
   // 在這裡添加您希望的點擊通知後執行的代碼
   // 例如，打開特定頁面或執行其他操作
   event.waitUntil(
-    clients.openWindow("https://google.com") // 打開特定網頁
+    clients.openWindow("/") // 打開特定網頁
   );
 });
 
-self.addEventListener("push", (event) => {
-  clearCache(event)
+navigator.serviceWorker.addEventListener('controllerchange', () => {
+  window.location.reload();
+});
+
+self.addEventListener('message', (event) => {
+  if (event.data.action === 'skipWaiting') {
+    self.skipWaiting();
+  }
+});
+
+self.addEventListener("push", () => {
+  // clearCache(event)
+  self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
-  clearCache(event)
+  clearCache(event);
 });
 
-function clearCache(event){
+function clearCache(event) {
   // 解析推送的数据
   const data = event.data.json();
   // 检查数据中的指令，例如是否要清除缓存
