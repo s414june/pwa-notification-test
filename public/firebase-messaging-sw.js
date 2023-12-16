@@ -18,13 +18,6 @@ self.addEventListener("notificationclick", function (event) {
   );
 });
 
-// self.addEventListener("message", (event) => {
-//   console.log(event.data);
-//   if (event.data.action === "skipWaiting") {
-//     self.skipWaiting();
-//   }
-// });
-
 self.addEventListener("push", (event) => {
   if (event.data.title.includes("clear")) {
     self.skipWaiting();
