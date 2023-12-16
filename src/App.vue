@@ -70,7 +70,7 @@ export default {
     //   let s = d.getSeconds();
     //   return h + ":" + m + ":" + s;
     // },
-    reload() {
+    _reload() {
       window.location.reload();
     },
   },
