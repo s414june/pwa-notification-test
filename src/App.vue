@@ -40,6 +40,7 @@ onMessage((payload) => {
 });
 
 navigator.serviceWorker.addEventListener("controllerchange", () => {
+  console.log("controllerchange")
   window.location.reload();
 });
 
