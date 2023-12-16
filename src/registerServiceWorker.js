@@ -28,16 +28,4 @@ if (process.env.NODE_ENV === 'production') {
       console.error('Error during service worker registration:', error)
     }
   })
-
-
-  addEventListener("notificationclick", (event) => {
-    console.log(event)
-    event.waitUntil(
-      (async () => {
-        // eslint-disable-next-line no-undef
-        await clients.openWindow("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-      })(),
-    );
-  });
-  
 }

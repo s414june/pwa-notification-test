@@ -70,6 +70,16 @@ navigator.serviceWorker.addEventListener("controllerchange", () => {
   window.location.reload();
 });
 
+navigator.serviceWorker.addEventListener("notificationclick", (event) => {
+    console.log(event)
+    event.waitUntil(
+      (async () => {
+        // eslint-disable-next-line no-undef
+        await clients.openWindow("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+      })(),
+    );
+  });
+
 export default {
   name: "App",
   components: {},
