@@ -39,7 +39,7 @@ onMessage((payload) => {
   // 處理接收到的消息
 });
 
-navigator.serviceWorker.addEventListener('controllerchange', () => {
+navigator.serviceWorker.addEventListener("controllerchange", () => {
   window.location.reload();
 });
 
@@ -79,12 +79,12 @@ export default {
       window.location.reload();
     },
     _clearCache() {
-      console.log(navigator)
-      if ("serviceWorker" in navigator && self.clients[0]) {
-        self.clients[0].postMessage({
+      navigator.serviceWorker.ready.then((registration) => {
+        registration.active.postMessage({
           action: "skipWaiting",
         });
-      }
+      });
+      console.log("清快取囉");
     },
   },
 };

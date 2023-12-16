@@ -42,7 +42,7 @@ self.addEventListener("notificationclick", function (event) {
   // 在這裡添加您希望的點擊通知後執行的代碼
   // 例如，打開特定頁面或執行其他操作
   event.waitUntil(
-    clients.openWindow("/") // 打開特定網頁
+    clients.openWindow("https://pwa-notification-test-iota.vercel.app/") // 打開特定網頁
   );
 });
 
