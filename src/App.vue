@@ -80,12 +80,10 @@ export default {
     },
     _clearCache() {
       console.log(navigator)
-      console.log(navigator.serviceWorker.controller)
-      if ("serviceWorker" in navigator && navigator.serviceWorker.controller) {
-        navigator.serviceWorker.controller.postMessage({
+      if ("serviceWorker" in navigator && self.clients[0]) {
+        self.clients[0].postMessage({
           action: "skipWaiting",
         });
-        alert("清快取囉");
       }
     },
   },
