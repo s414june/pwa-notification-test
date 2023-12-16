@@ -20,7 +20,7 @@
   <!-- <button @click="_clearCache()">清除快取並重新整理</button> -->
   <br />
   <p>頁面更新時間：{{ _refreshTime() }}</p>
-  <span>{{ _getText() }}</span>
+  <span v-show="_getText()!=''">隨機生成的query參數: {{ _getText() }}</span>
   <!-- <p>重新整理網頁，可以發現已安裝的PWA頁面不會清除快取！</p> -->
   <!-- <p>這是一個清除快取的測試，若看到這行表示成功清除快取了</p> -->
   <br />
