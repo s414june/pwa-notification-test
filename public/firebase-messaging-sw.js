@@ -14,7 +14,7 @@ self.addEventListener("notificationclick", function (event) {
   // 在這裡添加您希望的點擊通知後執行的代碼
   // 例如，打開特定頁面或執行其他操作
   event.waitUntil(
-    clients.openWindow("https://www.youtube.com/watch?v=dQw4w9WgXcQ") // 打開特定網頁
+    clients.openWindow("/?text=" + Math.random()) // 打開特定網頁
   );
 });
 
