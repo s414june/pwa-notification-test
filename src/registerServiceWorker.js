@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-
+//暫時不用，目前使用firebase
 import { register } from 'register-service-worker'
 
 if (process.env.NODE_ENV === 'production') {

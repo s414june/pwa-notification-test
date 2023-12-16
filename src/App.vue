@@ -1,10 +1,10 @@
 <template>
-  <HelloWorld></HelloWorld>
+  <p>firebase推播的標題中夾帶"clear"字眼可以清除緩存</p>
   <button @click="_requestPermission()">開啟推播</button>
   <button @click="_showNotification()">測試推播</button>
 </template>
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+// import HelloWorld from "./components/HelloWorld.vue";
 
 import { messaging } from "./firebaseInit";
 import { onMessage, getToken } from "firebase/messaging";
@@ -39,10 +39,10 @@ onMessage((payload) => {
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    // HelloWorld,
   },
   methods: {
-    _requestPermission(){
+    _requestPermission() {
       Notification.requestPermission();
     },
     _showNotification() {
@@ -50,15 +50,16 @@ export default {
         if (result === "granted") {
           navigator.serviceWorker.ready.then((registration) => {
             console.log(registration);
-            registration.showNotification("Vibration Sample", {
-              body: "Buzz! Buzz!",
-              icon: "../images/touch/chrome-touch-icon-192x192.png",
-              vibrate: [200, 100, 200, 100, 200, 100, 200],
+            registration.showNotification("測試通知", {
+              body: "叮叮叮叮",
+              icon: "/img/icon/android-chrome-192x192.png",
+              vibrate: [200, 100, 200, 100, 200, 100, 200], //震動
               tag: "vibration-sample",
+              lang: "zh-tw",
             });
           });
         }
-      })
+      });
     },
   },
 };
@@ -72,5 +73,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+button{
+  min-width: 100px;
+  height: 50px;
 }
 </style>
