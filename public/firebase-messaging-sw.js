@@ -8,30 +8,28 @@ importScripts(
 );
 
 // 註冊推播通知事件處理程序
+//self指的是firebase的執行個體，所以測試的推播不會運行這個
 self.addEventListener("notificationclick", function (event) {
   event.notification.close(); // 關閉通知
   // 在這裡添加您希望的點擊通知後執行的代碼
   // 例如，打開特定頁面或執行其他操作
   event.waitUntil(
-    clients.openWindow("https://pwa-notification-test-iota.vercel.app/") // 打開特定網頁
+    clients.openWindow("/") // 打開特定網頁
   );
 });
 
-self.addEventListener("message", (event) => {
-  console.log(event.data);
-  if (event.data.action === "skipWaiting") {
-    self.skipWaiting();
-  }
-});
-
-// self.addEventListener("push", (event) => {
-//   // clearCache(event)
-//   // self.skipWaiting();
+// self.addEventListener("message", (event) => {
 //   console.log(event.data);
 //   if (event.data.action === "skipWaiting") {
 //     self.skipWaiting();
 //   }
 // });
+
+self.addEventListener("push", (event) => {
+  if (event.data.title.includes("clear")) {
+    self.skipWaiting();
+  }
+});
 
 const firebaseConfig = {
   apiKey: "AIzaSyDc7_KRggZySk2NLdlcEQGfAtOuyVC-REs",

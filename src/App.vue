@@ -3,7 +3,7 @@
   <button @click="_requestPermission()">開啟推播</button>
   <button @click="_showNotification()">測試推播</button>
   <button @click="_reload()">重新整理網頁</button>
-  <button @click="_clearCache()">清除快取並重新整理</button>
+  <!-- <button @click="_clearCache()">清除快取並重新整理</button> -->
   <p>頁面更新時間：{{ _refreshTime() }}</p>
 </template>
 <script>
