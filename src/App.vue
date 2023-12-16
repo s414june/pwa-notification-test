@@ -8,12 +8,11 @@
   <p style="color: brown">
     ＊測試按鈕不能清除快取，因為service worker的執行個體在firebase上＊
   </p>
-  <p>我不確定可不可以並行，或者會需要開兩個service worker？</p>
+  <!-- <p>我不確定可不可以並行，或者會需要開兩個service worker？</p> -->
   <p style="color: brown">
     目前測試，如果網頁正在開啟狀態，firebase並不會執行onMessage監聽，
     <br />所以不能成功推播firebase傳來的內容。
     <br />這可能是firebase自己的問題
-    <br />（我覺得firebase很難用）
   </p>
   <br />
   <button @click="_requestPermission()">開啟推播</button>
@@ -22,7 +21,7 @@
   <!-- <button @click="_clearCache()">清除快取並重新整理</button> -->
   <br />
   <p>頁面更新時間：{{ _refreshTime() }}</p>
-  <p>重新整理網頁，可以發現已安裝的PWA頁面不會清除快取！</p>
+  <!-- <p>重新整理網頁，可以發現已安裝的PWA頁面不會清除快取！</p> -->
   <!-- <p>這是一個清除快取的測試，若看到這行表示成功清除快取了</p> -->
   <br />
 </template>
