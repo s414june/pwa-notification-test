@@ -2,6 +2,7 @@
   <p>firebase推播的標題中夾帶"clear"字眼可以清除緩存</p>
   <button @click="_requestPermission()">開啟推播</button>
   <button @click="_showNotification()">測試推播</button>
+  <p>清除緩存的時間為：{{ clearTime }}</p>
 </template>
 <script>
 // import HelloWorld from "./components/HelloWorld.vue";
@@ -56,11 +57,18 @@ export default {
               vibrate: [200, 100, 200, 100, 200, 100, 200], //震動
               tag: "vibration-sample",
               lang: "zh-tw",
-              sound:'/sound.mp3'
+              sound: "/sound.mp3",
             });
           });
         }
       });
+    },
+    clearTime() {
+      let d = new Date();
+      let h = d.getHours();
+      let m = d.getMinutes();
+      let s = d.getSeconds();
+      return h + ":" + m + ":" + s;
     },
   },
 };
@@ -75,7 +83,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-button{
+button {
   min-width: 100px;
   height: 50px;
 }
