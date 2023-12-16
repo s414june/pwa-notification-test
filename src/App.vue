@@ -70,6 +70,7 @@ navigator.serviceWorker.addEventListener("controllerchange", () => {
 });
 
 navigator.serviceWorker.addEventListener("message", (event) => {
+  console.log(event);
   event.preventDefault();
   window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 });
