@@ -73,7 +73,15 @@ function clearCache(event) {
         cacheNames.map((cacheName) => {
           return caches.delete(cacheName);
         })
-      );
+      ).then(() => {
+        const title = "清除快取通知";
+        const options = {
+          body: "已經清除快取",
+          // icon: payload.notification.icon,
+          icon: "/img/icons/icon-192.png",
+        };
+        return self.registration.showNotification(title, options);
+      });
     })
   );
 }
