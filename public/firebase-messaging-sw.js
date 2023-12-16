@@ -38,6 +38,7 @@ messaging.onBackgroundMessage(function (payload) {
 
 // 註冊推播通知事件處理程序
 self.addEventListener("notificationclick", function (event) {
+  console.log(event)
   event.notification.close(); // 關閉通知
   // 在這裡添加您希望的點擊通知後執行的代碼
   // 例如，打開特定頁面或執行其他操作

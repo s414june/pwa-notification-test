@@ -84,8 +84,8 @@ export default {
         registration.active.postMessage({
           action: "skipWaiting",
         });
+        console.log("清快取囉");
       });
-      console.log("清快取囉");
     },
   },
 };
