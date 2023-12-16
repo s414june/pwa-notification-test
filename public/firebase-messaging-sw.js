@@ -31,7 +31,7 @@ messaging.onBackgroundMessage(function (payload) {
   const options = {
     body: payload.notification.body,
     // icon: payload.notification.icon,
-    icon: "/img/icon/icon-192.png",
+    icon: "/img/icons/icon-192.png",
   };
   return self.registration.showNotification(title, options);
 });
