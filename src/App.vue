@@ -79,10 +79,13 @@ export default {
       window.location.reload();
     },
     _clearCache() {
+      console.log(navigator)
+      console.log(navigator.serviceWorker.controller)
       if ("serviceWorker" in navigator && navigator.serviceWorker.controller) {
         navigator.serviceWorker.controller.postMessage({
           action: "skipWaiting",
         });
+        alert("清快取囉");
       }
     },
   },
