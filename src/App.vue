@@ -11,8 +11,7 @@
   <!-- <p>我不確定可不可以並行，或者會需要開兩個service worker？</p> -->
   <p style="color: brown">
     目前測試，如果網頁正在開啟狀態，firebase並不會執行onMessage監聽，
-    <br />所以不能成功推播firebase傳來的內容。
-    <br />這可能是firebase自己的問題
+    <br />所以不能成功推播firebase傳來的內容。 <br />這可能是firebase自己的問題
   </p>
   <br />
   <button @click="_requestPermission()">開啟推播</button>
@@ -70,15 +69,10 @@ navigator.serviceWorker.addEventListener("controllerchange", () => {
   window.location.reload();
 });
 
-navigator.serviceWorker.addEventListener("notificationclick", (event) => {
-    console.log(event)
-    event.waitUntil(
-      (async () => {
-        // eslint-disable-next-line no-undef
-        await clients.openWindow("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-      })(),
-    );
-  });
+navigator.serviceWorker.addEventListener("message", (event) => {
+  event.preventDefault();
+  window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+});
 
 export default {
   name: "App",
