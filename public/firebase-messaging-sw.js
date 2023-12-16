@@ -46,10 +46,6 @@ self.addEventListener("notificationclick", function (event) {
   );
 });
 
-navigator.serviceWorker.addEventListener('controllerchange', () => {
-  window.location.reload();
-});
-
 self.addEventListener('message', (event) => {
   if (event.data.action === 'skipWaiting') {
     self.skipWaiting();

@@ -39,6 +39,10 @@ onMessage((payload) => {
   // 處理接收到的消息
 });
 
+navigator.serviceWorker.addEventListener('controllerchange', () => {
+  window.location.reload();
+});
+
 export default {
   name: "App",
   components: {
