@@ -56,6 +56,7 @@ export default {
               vibrate: [200, 100, 200, 100, 200, 100, 200], //震動
               tag: "vibration-sample",
               lang: "zh-tw",
+              sound:'/sound.mp3'
             });
           });
         }
