@@ -57,8 +57,8 @@ self.addEventListener("push", () => {
   // self.skipWaiting();
 });
 
-self.addEventListener("activate", () => {
-  clearCache();
+self.addEventListener("activate", (event) => {
+  clearCache(event);
 });
 
 function clearCache(event) {
