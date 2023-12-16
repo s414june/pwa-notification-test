@@ -46,37 +46,35 @@ self.addEventListener("notificationclick", function (event) {
   );
 });
 
-self.addEventListener('message', (event) => {
-  if (event.data.action === 'skipWaiting') {
+self.addEventListener("message", (event) => {
+  if (event.data.action === "skipWaiting") {
     self.skipWaiting();
   }
 });
 
 self.addEventListener("push", () => {
   // clearCache(event)
-  self.skipWaiting();
+  // self.skipWaiting();
 });
 
-self.addEventListener("activate", (event) => {
-  clearCache(event);
+self.addEventListener("activate", () => {
+  clearCache();
 });
 
 function clearCache(event) {
-  console.log(event)
-  // 解析推送的数据
-  const data = event.data;
+  // console.log(event)
+  // // 解析推送的数据
+  // const data = event.data;
   // 检查数据中的指令，例如是否要清除缓存
-  if (data.title.includes("clear")) {
-    // if (data.action === 'clear') {
-    // 清除缓存的逻辑
-    event.waitUntil(
-      caches.keys().then((cacheNames) => {
-        return Promise.all(
-          cacheNames.map((cacheName) => {
-            return caches.delete(cacheName);
-          })
-        );
-      })
-    );
-  }
+  // if (data.action === 'clear') {
+  // 清除缓存的逻辑
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          return caches.delete(cacheName);
+        })
+      );
+    })
+  );
 }
