@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === 'production') {
     event.waitUntil(
       (async () => {
         // eslint-disable-next-line no-undef
-        await clients.openWindow("/chat/");
+        await clients.openWindow("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
       })(),
     );
   });
