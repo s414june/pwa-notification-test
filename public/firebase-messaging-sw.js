@@ -38,7 +38,7 @@ messaging.onBackgroundMessage(function (payload) {
 
 // 註冊推播通知事件處理程序
 self.addEventListener("notificationclick", function (event) {
-  console.log(event);
+  event.preventDefault();
   event.notification.close(); // 關閉通知
   // 在這裡添加您希望的點擊通知後執行的代碼
   // 例如，打開特定頁面或執行其他操作
@@ -47,25 +47,30 @@ self.addEventListener("notificationclick", function (event) {
   );
 });
 
-// self.addEventListener("message", (event) => {
-//   console.log(event.data);
-//   if (event.data.action === "skipWaiting") {
-//     self.skipWaiting();
-//   }
-// });
+// notification.onclick = (event) => {
+//   event.preventDefault(); // prevent the browser from focusing the Notification's tab
+//   window.open("http://www.mozilla.org", "_blank");
+// };
 
-// self.addEventListener("push", (event) => {
-//   // clearCache(event)
-//   // self.skipWaiting();
-//   console.log(event.data);
-//   if (event.data.action === "skipWaiting") {
-//     self.skipWaiting();
-//   }
-// });
+self.addEventListener("message", (event) => {
+  console.log(event.data);
+  if (event.data.action === "skipWaiting") {
+    self.skipWaiting();
+  }
+});
 
-// self.addEventListener("activate", (event) => {
-//   clearCache(event);
-// });
+self.addEventListener("push", (event) => {
+  // clearCache(event)
+  // self.skipWaiting();
+  console.log(event.data);
+  if (event.data.action === "skipWaiting") {
+    self.skipWaiting();
+  }
+});
+
+self.addEventListener("activate", (event) => {
+  clearCache(event);
+});
 
 function clearCache(event) {
   // console.log(event)
