@@ -5,9 +5,9 @@
     實際開發中，我們可以使用data中action值來判斷，
     <br />現在是因為我不知道怎麼設定firebase的action值
   </p>
-  <p style="color: brown">
+  <!-- <p style="color: brown">
     ＊測試按鈕不能清除快取，因為service worker的執行個體在firebase上＊
-  </p>
+  </p> -->
   <!-- <p>我不確定可不可以並行，或者會需要開兩個service worker？</p> -->
   <p style="color: brown">
     目前測試，如果網頁正在開啟狀態，firebase並不會執行onMessage監聽，
