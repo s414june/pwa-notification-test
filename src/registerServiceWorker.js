@@ -31,6 +31,7 @@ if (process.env.NODE_ENV === 'production') {
 
 
   addEventListener("notificationclick", (event) => {
+    console.log(event)
     event.waitUntil(
       (async () => {
         // eslint-disable-next-line no-undef
