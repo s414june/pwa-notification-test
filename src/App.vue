@@ -1,22 +1,26 @@
 <template>
   <h1>PWA Notification 測試</h1>
   <p>firebase推播的標題中夾帶"clear"字眼可以清除緩存</p>
-  <p>實際開發中，我們可以使用data中action值來判斷，
-    <br />現在是因為我不知道怎麼設定firebase的action值</p>
-  <p style="color: brown;">＊測試按鈕不能清除快取，因為service worker的執行個體在firebase上＊</p>
+  <p>
+    實際開發中，我們可以使用data中action值來判斷，
+    <br />現在是因為我不知道怎麼設定firebase的action值
+  </p>
+  <p style="color: brown">
+    ＊測試按鈕不能清除快取，因為service worker的執行個體在firebase上＊
+  </p>
   <p>我不確定可不可以並行，或者會需要開兩個service worker？</p>
-  <hr />
+  <br />
   <button @click="_requestPermission()">開啟推播</button>
   <button @click="_showNotification()">測試推播</button>
   <button @click="_reload()">重新整理網頁</button>
   <!-- <button @click="_clearCache()">清除快取並重新整理</button> -->
-  <hr />
+  <br />
   <p>頁面更新時間：{{ _refreshTime() }}</p>
   <p>重新整理網頁，可以發現已安裝的PWA頁面不會清除快取！</p>
   <!-- <p>這是一個清除快取的測試，若看到這行表示成功清除快取了</p> -->
+  <br />
 </template>
 <script>
-
 import { messaging } from "./firebaseInit";
 import { onMessage, getToken } from "firebase/messaging";
 
@@ -51,18 +55,25 @@ onMessage((payload) => {
     // icon: payload.notification.icon,
     icon: "/img/icons/icon-192.png",
   };
-  return self.registration.showNotification(title, options);
+  navigator.serviceWorker.ready.then((registration) => {
+    registration.showNotification(title, {
+      body: options,
+      icon: "/img/icons/icon-192.png",
+      vibrate: [200, 100, 200, 100, 200, 100, 200], //震動
+      tag: "vibration-sample",
+      lang: "zh-tw",
+    });
+  });
 });
 
 navigator.serviceWorker.addEventListener("controllerchange", () => {
-  console.log("controllerchange")
+  console.log("controllerchange");
   window.location.reload();
 });
 
 export default {
   name: "App",
-  components: {
-  },
+  components: {},
   methods: {
     _requestPermission() {
       Notification.requestPermission();
