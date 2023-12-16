@@ -62,6 +62,7 @@ self.addEventListener("activate", (event) => {
 });
 
 function clearCache(event) {
+  console.log(event)
   // 解析推送的数据
   const data = event.data;
   // 检查数据中的指令，例如是否要清除缓存
