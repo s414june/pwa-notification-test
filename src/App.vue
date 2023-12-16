@@ -5,6 +5,7 @@
   <button @click="_reload()">重新整理網頁</button>
   <!-- <button @click="_clearCache()">清除快取並重新整理</button> -->
   <p>頁面更新時間：{{ _refreshTime() }}</p>
+  <p>這是一個清除快取的測試，若看到這行表示成功清除快取了</p>
 </template>
 <script>
 // import HelloWorld from "./components/HelloWorld.vue";
