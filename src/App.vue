@@ -9,6 +9,12 @@
     ＊測試按鈕不能清除快取，因為service worker的執行個體在firebase上＊
   </p>
   <p>我不確定可不可以並行，或者會需要開兩個service worker？</p>
+  <p style="color: brown">
+    目前測試，如果網頁正在開啟狀態，firebase並不會執行onMessage監聽，
+    <br />所以不能成功推播firebase傳來的內容。
+    <br />這可能是firebase自己的問題
+    <br />（我覺得firebase很難用）
+  </p>
   <br />
   <button @click="_requestPermission()">開啟推播</button>
   <button @click="_showNotification()">測試推播</button>
@@ -56,13 +62,7 @@ onMessage((payload) => {
     icon: "/img/icons/icon-192.png",
   };
   navigator.serviceWorker.ready.then((registration) => {
-    registration.showNotification(title, {
-      body: options,
-      icon: "/img/icons/icon-192.png",
-      vibrate: [200, 100, 200, 100, 200, 100, 200], //震動
-      tag: "vibration-sample",
-      lang: "zh-tw",
-    });
+    registration.showNotification(title, options);
   });
 });
 
