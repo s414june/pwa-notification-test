@@ -2,7 +2,7 @@
   <p>firebase推播的標題中夾帶"clear"字眼可以清除緩存</p>
   <button @click="_requestPermission()">開啟推播</button>
   <button @click="_showNotification()">測試推播</button>
-  <button @click="window.location.reload()">重新整理網頁</button>
+  <button @click="_reload()">重新整理網頁</button>
 </template>
 <script>
 // import HelloWorld from "./components/HelloWorld.vue";
@@ -70,6 +70,9 @@ export default {
     //   let s = d.getSeconds();
     //   return h + ":" + m + ":" + s;
     // },
+    reload() {
+      window.location.reload();
+    },
   },
 };
 </script>
