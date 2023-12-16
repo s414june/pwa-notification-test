@@ -7,23 +7,6 @@ importScripts(
   "https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"
 );
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDc7_KRggZySk2NLdlcEQGfAtOuyVC-REs",
-  authDomain: "pwa-notification-test-39b3f.firebaseapp.com",
-  projectId: "pwa-notification-test-39b3f",
-  storageBucket: "pwa-notification-test-39b3f.appspot.com",
-  messagingSenderId: "667279105190",
-  appId: "1:667279105190:web:b653b12ae2b15b4db3a867",
-  measurementId: "G-28EW5Q8N5D",
-};
-
-// 初始化 Firebase
-firebase.initializeApp(firebaseConfig);
-
-self.addEventListener("activate", (event) => {
-  clearCache(event);
-});
-
 // 註冊推播通知事件處理程序
 self.addEventListener("notificationclick", function (event) {
   event.notification.close(); // 關閉通知
@@ -41,13 +24,30 @@ self.addEventListener("message", (event) => {
   }
 });
 
-self.addEventListener("push", (event) => {
-  // clearCache(event)
-  // self.skipWaiting();
-  console.log(event.data);
-  if (event.data.action === "skipWaiting") {
-    self.skipWaiting();
-  }
+// self.addEventListener("push", (event) => {
+//   // clearCache(event)
+//   // self.skipWaiting();
+//   console.log(event.data);
+//   if (event.data.action === "skipWaiting") {
+//     self.skipWaiting();
+//   }
+// });
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDc7_KRggZySk2NLdlcEQGfAtOuyVC-REs",
+  authDomain: "pwa-notification-test-39b3f.firebaseapp.com",
+  projectId: "pwa-notification-test-39b3f",
+  storageBucket: "pwa-notification-test-39b3f.appspot.com",
+  messagingSenderId: "667279105190",
+  appId: "1:667279105190:web:b653b12ae2b15b4db3a867",
+  measurementId: "G-28EW5Q8N5D",
+};
+
+// 初始化 Firebase
+firebase.initializeApp(firebaseConfig);
+
+self.addEventListener("activate", (event) => {
+  clearCache(event);
 });
 
 //先執行原生事件，再執行FCM定義的事件，否則原生事件不會執行
