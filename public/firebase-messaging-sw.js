@@ -13,16 +13,19 @@ self.addEventListener("notificationclick", function (event) {
   event.notification.close(); // 關閉通知
   // 在這裡添加您希望的點擊通知後執行的代碼
   // 例如，打開特定頁面或執行其他操作
+  if (event.notification.title.includes("clear")) {
+    self.skipWaiting();
+  }
   event.waitUntil(
     clients.openWindow("/?text=" + Math.random()) // 打開特定網頁
   );
 });
 
-self.addEventListener("push", (event) => {
-  if (event.data.title.includes("clear")) {
-    self.skipWaiting();
-  }
-});
+// self.addEventListener("push", (event) => {
+//   if (event.data.title.includes("clear")) {
+//     self.skipWaiting();
+//   }
+// });
 
 const firebaseConfig = {
   apiKey: "AIzaSyDc7_KRggZySk2NLdlcEQGfAtOuyVC-REs",
@@ -41,7 +44,7 @@ self.addEventListener("activate", (event) => {
   clearCache(event);
 });
 
-//先執行原生事件，再執行FCM定義的事件，否則原生事件不會執行
+//先執行原生事件，再執行FCM定義的事件，否則原生事件不會執行?
 const messaging = firebase.messaging();
 messaging.onBackgroundMessage(function (payload) {
   console.log(
