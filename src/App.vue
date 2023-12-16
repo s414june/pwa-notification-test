@@ -84,9 +84,9 @@ export default {
             console.log("測試開始");
             registration.showNotification("測試通知", {
               body: "叮叮噹　叮叮噹　鈴聲多響亮　你看他呀不避風霜　面容多麼慈祥！叮叮噹　叮叮噹　鈴聲多響亮　他給我們帶來幸福　大家喜洋洋",
-              icon: "/img/icons/icon-192.png",
-              vibrate: [200, 100, 200, 100, 200, 100, 200], //震動
-              tag: "vibration-sample",
+              // // icon: "/img/icons/icon-192.png",
+              // vibrate: [200, 100, 200, 100, 200, 100, 200], //震動
+              // tag: "vibration-sample",
               lang: "zh-tw",
             });
           });
