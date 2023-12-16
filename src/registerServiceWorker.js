@@ -32,7 +32,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-self.addEventListener("push", (event) => {
+self.addEventListener("message", (event) => {
   console.log(event.data);
   if (event.data.action === "skipWaiting") {
     self.skipWaiting();

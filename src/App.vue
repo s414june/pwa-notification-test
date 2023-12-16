@@ -37,6 +37,24 @@ getToken(messaging, {
     if (currentToken) {
       console.log("Token received: ", currentToken);
       // 处理获取到的令牌
+      // 訂閱消息
+      onMessage((payload) => {
+        console.log("Message received. ", payload);
+        // 處理接收到的消息
+        const title = payload.notification.title;
+        const options = {
+          body: payload.notification.body,
+          // icon: payload.notification.icon,
+          icon: "/img/icons/icon-192.png",
+        };
+        navigator.serviceWorker.ready.then((registration) => {
+          registration.showNotification(title, options);
+        });
+        navigator.serviceWorker.addEventListener("controllerchange", () => {
+          console.log("controllerchange");
+          window.location.reload();
+        });
+      });
     } else {
       console.log(
         "No registration token available. Request permission to generate one."
@@ -49,31 +67,26 @@ getToken(messaging, {
     // 处理可能发生的错误
   });
 
-// 訂閱消息
-onMessage((payload) => {
-  console.log("Message received. ", payload);
-  // 處理接收到的消息
-  const title = payload.notification.title;
-  const options = {
-    body: payload.notification.body,
-    // icon: payload.notification.icon,
-    icon: "/img/icons/icon-192.png",
-  };
-  navigator.serviceWorker.ready.then((registration) => {
-    registration.showNotification(title, options);
-  });
-});
-
-navigator.serviceWorker.addEventListener("controllerchange", () => {
-  console.log("controllerchange");
-  window.location.reload();
-});
-
-navigator.serviceWorker.addEventListener("message", (event) => {
-  console.log(event);
-  event.preventDefault();
-  window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
-});
+// 在前台页面的 JavaScript 中
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("/service-worker.js")
+    .then(() => {
+      // 监听来自 Service Worker 的消息
+      navigator.serviceWorker.addEventListener("message", (event) => {
+        // 根据 event.data 执行相应操作
+        event.preventDefault();
+        window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+      });
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        console.log("controllerchange");
+        window.location.reload();
+      });
+    })
+    .catch((error) => {
+      console.error("Service Worker 注册失败:", error);
+    });
+}
 
 export default {
   name: "App",
@@ -109,7 +122,6 @@ export default {
       window.location.reload();
     },
     _clearCache() {
-      //postMessage將會失敗，因為執行個體位於firebase
       navigator.serviceWorker.ready.then((registration) => {
         registration.active.postMessage({
           action: "skipWaiting",
