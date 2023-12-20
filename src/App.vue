@@ -41,14 +41,12 @@ getToken(messaging, {
       onMessage((payload) => {
         console.log("Message received. ", payload);
         // 處理接收到的消息
-        const title = payload.notification.title;
-        const options = {
-          body: payload.notification.body,
-          icon: "/img/icons/icon-192.png",
-        };
         navigator.serviceWorker.ready.then((registration) => {
-          console.log("navigator.serviceWorker.ready");
-          registration.showNotification(title, options);
+          registration.active.postMessage({
+            title: payload.notification.title,
+            body: payload.notification.body,
+            icon: "/img/icons/icon-192.png",
+          });
         });
         navigator.serviceWorker.addEventListener("controllerchange", () => {
           window.location.reload();
@@ -86,8 +84,9 @@ export default {
       //   }
       // });
       navigator.serviceWorker.ready.then((registration) => {
+        console.log("測試開始");
         registration.active.postMessage({
-          title:"測試通知",
+          title: "測試通知",
           body: "叮叮噹　叮叮噹　鈴聲多響亮　你看他呀不避風霜　面容多麼慈祥！叮叮噹　叮叮噹　鈴聲多響亮　他給我們帶來幸福　大家喜洋洋",
           icon: "/img/icons/icon-192.png",
           tag: "vibration-sample",
