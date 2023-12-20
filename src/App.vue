@@ -78,7 +78,7 @@ export default {
       //   if (result === "granted") {
       //     navigator.serviceWorker.ready.then((registration) => {
       //       registration.showNotification("測試通知", {
-      //         body: "叮叮噹　叮叮噹　鈴聲多響亮　你看他呀不避風霜　面容多麼慈祥！叮叮噹　叮叮噹　鈴聲多響亮　他給我們帶來幸福　大家喜洋洋",
+      //         body: "",
       //         icon: "/img/icons/icon-192.png",
       //         tag: "vibration-sample",
       //       });
