@@ -28,10 +28,10 @@
 import { messaging } from "./firebaseInit";
 import { onMessage, getToken } from "firebase/messaging";
 
+const token = "BOAw5pQGmd4WaIplh_GRbO7Lz0GT3d3A8qu0v-wq5jG5SQKdWPZswUWYi5BB2Rb27U0B6Bjoi1Qt4mevxgpuhqc";
 // 請求通知權限
 getToken(messaging, {
-  vapidKey:
-    "BOAw5pQGmd4WaIplh_GRbO7Lz0GT3d3A8qu0v-wq5jG5SQKdWPZswUWYi5BB2Rb27U0B6Bjoi1Qt4mevxgpuhqc",
+  vapidKey: token,
 })
   .then((currentToken) => {
     if (currentToken) {
@@ -43,9 +43,12 @@ getToken(messaging, {
         // 處理接收到的消息
         navigator.serviceWorker.ready.then((registration) => {
           registration.active.postMessage({
-            title: payload.notification.title,
-            body: payload.notification.body,
-            icon: "/img/icons/icon-192.png",
+            token: token,
+            data: {
+              title: payload.notification.title,
+              body: payload.notification.body,
+              icon: "/img/icons/icon-192.png",
+            },
           });
         });
         navigator.serviceWorker.addEventListener("controllerchange", () => {
@@ -84,12 +87,14 @@ export default {
       //   }
       // });
       navigator.serviceWorker.ready.then((registration) => {
-        console.log("測試開始");
         registration.active.postMessage({
-          title: "測試通知",
-          body: "叮叮噹　叮叮噹　鈴聲多響亮　你看他呀不避風霜　面容多麼慈祥！叮叮噹　叮叮噹　鈴聲多響亮　他給我們帶來幸福　大家喜洋洋",
-          icon: "/img/icons/icon-192.png",
-          tag: "vibration-sample",
+          token: token,
+          data: {
+            title: "測試通知",
+            body: "叮叮噹　叮叮噹　鈴聲多響亮　你看他呀不避風霜　面容多麼慈祥！叮叮噹　叮叮噹　鈴聲多響亮　他給我們帶來幸福　大家喜洋洋",
+            icon: "/img/icons/icon-192.png",
+            tag: "vibration-sample",
+          },
         });
       });
     },
