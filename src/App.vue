@@ -28,7 +28,7 @@
 import { messaging } from "./firebaseInit";
 import { onMessage, getToken } from "firebase/messaging";
 
-const token = "e2DHskrDW9zHYd7FyqBxGI:APA91bFoSLFcqQ-BKyttgkFI8d2Cc_87FrOsu17TXLIdaqQ3NA7X7rhqq5QS91PeuGcDVP12cPzTuEyxym9NOJNREetTa0Nlc0n8VkkFBggOk1KtGpudqfOlxPpSR_Z8umVSC7ryAB-o";
+const token = "BOAw5pQGmd4WaIplh_GRbO7Lz0GT3d3A8qu0v-wq5jG5SQKdWPZswUWYi5BB2Rb27U0B6Bjoi1Qt4mevxgpuhqc";
 // 請求通知權限
 getToken(messaging, {
   vapidKey: token,
