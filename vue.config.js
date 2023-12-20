@@ -1,14 +1,14 @@
 const { defineConfig } = require('@vue/cli-service')
-const fs = require('fs');
+// const fs = require('fs');
 
 module.exports = defineConfig({
-  devServer: {
-    port: 3002,
-    https: {
-      key: fs.readFileSync('./localhost-key.pem'),
-      cert: fs.readFileSync('./localhost.pem'),
-    }
-  },
+  // devServer: {
+  //   port: 3002,
+  //   https: {
+  //     key: fs.readFileSync('./localhost-key.pem'),
+  //     cert: fs.readFileSync('./localhost.pem'),
+  //   }
+  // },
   transpileDependencies: true,
   configureWebpack: {
     resolve: {

@@ -7,29 +7,6 @@ importScripts(
 	"https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"
 );
 
-// 註冊推播通知事件處理程序
-self.addEventListener("notificationclick", function (event) {
-	event.notification.close(); // 關閉通知
-	event.waitUntil(
-		clients.openWindow("/?text=" + Math.random()) // 打開特定網頁
-	);
-});
-
-self.addEventListener("message", (event) => {
-  const data = event.data ?? {};
-  if (data.actions?.includes("skipWaiting")) {
-		self.skipWaiting();
-	}
-	const title = data.title || "";
-	if (title === "") return;
-	const options = {
-		body:  data.body ?? "",
-		icon: data.icon ?? "/img/icons/icon-192.png",
-		tag: data.tag ?? "",
-	};
-	return self.registration.showNotification(title, options);
-});
-
 const firebaseConfig = {
 	apiKey: "AIzaSyDc7_KRggZySk2NLdlcEQGfAtOuyVC-REs",
 	authDomain: "pwa-notification-test-39b3f.firebaseapp.com",
@@ -42,10 +19,6 @@ const firebaseConfig = {
 
 // 初始化 Firebase
 firebase.initializeApp(firebaseConfig);
-
-self.addEventListener("activate", (event) => {
-	clearCache(event);
-});
 
 //先執行原生事件，再執行FCM定義的事件，否則原生事件不會執行?
 const messaging = firebase.messaging();
@@ -81,3 +54,31 @@ function clearCache(event) {
 		})
 	);
 }
+
+
+// 註冊推播通知事件處理程序
+self.addEventListener("notificationclick", function (event) {
+	event.notification.close(); // 關閉通知
+	event.waitUntil(
+		clients.openWindow("/?text=" + Math.random()) // 打開特定網頁
+	);
+});
+
+self.addEventListener("message", (event) => {
+  const data = event.data ?? {};
+  if (data.actions?.includes("skipWaiting")) {
+		self.skipWaiting();
+	}
+	const title = data.title || "";
+	if (title === "") return;
+	const options = {
+		body:  data.body ?? "",
+		icon: data.icon ?? "/img/icons/icon-192.png",
+		tag: data.tag ?? "",
+	};
+	return self.registration.showNotification(title, options);
+});
+
+self.addEventListener("activate", (event) => {
+	clearCache(event);
+});
