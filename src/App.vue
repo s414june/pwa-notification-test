@@ -42,13 +42,11 @@ getToken(messaging, {
         console.log("Message received. ", payload);
         // 處理接收到的消息
         navigator.serviceWorker.ready.then((registration) => {
+          console.log(registration)
           registration.active.postMessage({
-            token: token,
-            data: {
-              title: payload.notification.title,
-              body: payload.notification.body,
-              icon: "/img/icons/icon-192.png",
-            },
+            title: payload.notification.title,
+            body: payload.notification.body,
+            icon: "/img/icons/icon-192.png",
           });
         });
         navigator.serviceWorker.addEventListener("controllerchange", () => {
@@ -66,6 +64,16 @@ getToken(messaging, {
     console.log("An error occurred while retrieving token. ", err);
     // 处理可能发生的错误
   });
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/firebase-messaging-sw.js')
+    .then(function (registration) {
+      console.log('Service Worker Registered', registration);
+    })
+    .catch(function (err) {
+      console.log('Service Worker registration failed', err);
+    });
+}
 
 export default {
   name: "App",
@@ -88,13 +96,10 @@ export default {
       // });
       navigator.serviceWorker.ready.then((registration) => {
         registration.active.postMessage({
-          token: token,
-          data: {
-            title: "測試通知",
-            body: "叮叮噹　叮叮噹　鈴聲多響亮　你看他呀不避風霜　面容多麼慈祥！叮叮噹　叮叮噹　鈴聲多響亮　他給我們帶來幸福　大家喜洋洋",
-            icon: "/img/icons/icon-192.png",
-            tag: "vibration-sample",
-          },
+          title: "測試通知",
+          body: "叮叮噹　叮叮噹　鈴聲多響亮　你看他呀不避風霜　面容多麼慈祥！叮叮噹　叮叮噹　鈴聲多響亮　他給我們帶來幸福　大家喜洋洋",
+          icon: "/img/icons/icon-192.png",
+          tag: "vibration-sample",
         });
       });
     },

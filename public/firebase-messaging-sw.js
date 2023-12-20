@@ -16,11 +16,11 @@ self.addEventListener("notificationclick", function (event) {
 });
 
 self.addEventListener("message", (event) => {
-  console.log(event);
-  if (event.data.actions.includes("skipWaiting")) {
+  console.log(event.data)
+  if (event.data.actions?.includes("skipWaiting")) {
 		self.skipWaiting();
 	}
-	const data = event.data?.json() ?? {};
+	const data = event.data.json() ?? {};
 	const title = data.title || "";
 	if (title === "") return;
 	const options = {
