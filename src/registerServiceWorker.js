@@ -31,27 +31,3 @@ if (process.env.NODE_ENV === "production") {
     },
   });
 }
-
-self.addEventListener("message", (event) => {
-  console.log(event.data);
-  if (event.data.action === "skipWaiting") {
-    self.skipWaiting();
-  }
-});
-
-self.addEventListener("activate", (event) => {
-  clearCache(event);
-});
-
-function clearCache(event) {
-  // 清除缓存的逻辑
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          return caches.delete(cacheName);
-        })
-      );
-    })
-  );
-}
