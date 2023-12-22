@@ -1,26 +1,14 @@
 <template>
   <h1>PWA Notification 測試</h1>
-  <p>firebase推播的標題中夾帶"clear"字眼可以清除緩存</p>
-  <p>
-    實際開發中，我們可以使用data中action值來判斷，
-    <br />現在是因為我不知道怎麼設定firebase的action值
-  </p>
-  <!-- <p style="color: brown">
-    ＊測試按鈕不能清除快取，因為service worker的執行個體在firebase上＊
-  </p> -->
-  <!-- <p>我不確定可不可以並行，或者會需要開兩個service worker？</p> -->
-  <p style="color: brown">
-    目前測試，如果網頁正在開啟狀態，firebase並不會執行onMessage監聽，
-    <br />所以不能成功推播firebase傳來的內容。 <br />這可能是firebase自己的問題
-  </p>
-  <br />
   <button @click="_requestPermission()">開啟推播</button>
   <button @click="_showNotification()">測試推播</button>
   <button @click="_reload()">重新整理網頁</button>
-  <button @click="_clearCache()">清除快取並重新整理</button>
+  <button @click="_clearCache()">清除快取</button>
   <br />
   <p>頁面更新時間：{{ _refreshTime() }}</p>
-  <span v-show="_getText() != ''">隨機生成的query參數: {{ _getText() }}</span>
+  <span v-show="_getText() != ''"
+    >隨機生成的query參數: {{ _getText() }}(看到這行表示你開啟了推播給予的連結)</span
+  >
   <!-- <p>這是一個清除快取的測試，若看到這行表示成功清除快取了</p> -->
   <br />
 </template>
@@ -28,7 +16,8 @@
 import { messaging } from "./firebaseInit";
 import { onMessage, getToken } from "firebase/messaging";
 
-const token = "BOAw5pQGmd4WaIplh_GRbO7Lz0GT3d3A8qu0v-wq5jG5SQKdWPZswUWYi5BB2Rb27U0B6Bjoi1Qt4mevxgpuhqc";
+const token =
+  "BOAw5pQGmd4WaIplh_GRbO7Lz0GT3d3A8qu0v-wq5jG5SQKdWPZswUWYi5BB2Rb27U0B6Bjoi1Qt4mevxgpuhqc";
 // 請求通知權限
 getToken(messaging, {
   vapidKey: token,
@@ -42,7 +31,7 @@ getToken(messaging, {
         console.log("Message received. ", payload);
         // 處理接收到的消息
         navigator.serviceWorker.ready.then((registration) => {
-          console.log(registration)
+          console.log(registration);
           registration.active.postMessage({
             title: payload.notification.title,
             body: payload.notification.body,
@@ -65,13 +54,14 @@ getToken(messaging, {
     // 处理可能发生的错误
   });
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/firebase-messaging-sw.js')
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("/firebase-messaging-sw.js")
     .then(function (registration) {
-      console.log('Service Worker Registered', registration);
+      console.log("Service Worker Registered", registration);
     })
     .catch(function (err) {
-      console.log('Service Worker registration failed', err);
+      console.log("Service Worker registration failed", err);
     });
 }
 
