@@ -27,13 +27,13 @@ messaging.onBackgroundMessage(function (payload) {
     "[firebase-messaging-sw.js] Received background message ",
     payload
   );
-  const title = payload.notification.title;
-  const options = {
-    body: payload.notification.body,
-    // icon: payload.notification.icon,
-    icon: "/img/icons/icon-192.png",
-  };
-  return self.registration.showNotification(title, options);
+  // const title = payload.notification.title;
+  // const options = {
+  //   body: payload.notification.body,
+  //   // icon: payload.notification.icon,
+  //   icon: "/img/icons/icon-192.png",
+  // };
+  // return self.registration.showNotification(title, options);
 });
 
 async function clearCache() {
