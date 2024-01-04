@@ -1,16 +1,17 @@
 <template>
-  <h1>PWA Notification 測試</h1>
-  <button @click="_requestPermission()">開啟推播</button>
-  <button @click="_showNotification()">測試推播</button>
-  <button @click="_reload()">重新整理網頁</button>
-  <button @click="_clearCache()">清除快取</button>
-  <br />
-  <p>頁面更新時間：{{ _refreshTime() }}</p>
-  <span v-show="_getText() != ''"
-    >隨機生成的query參數: {{ _getText() }}(看到這行表示你開啟了推播給予的連結)</span
-  >
-  <!-- <p>這是一個清除快取的測試，若看到這行表示成功清除快取了</p> -->
-  <br />
+	<h1>PWA Notification 測試</h1>
+	<button @click="_requestPermission()">開啟推播</button>
+	<button @click="_showNotification()">測試推播</button>
+	<button @click="_reload()">重新整理網頁</button>
+	<button @click="_clearCache()">清除快取</button>
+	<br />
+	<p>頁面更新時間：{{ _refreshTime() }}</p>
+	<span v-show="_getText() != ''"
+		>隨機生成的query參數:
+		{{ _getText() }}(看到這行表示你開啟了推播給予的連結)</span
+	>
+	<!-- <p>這是一個清除快取的測試，若看到這行表示成功清除快取了</p> -->
+	<br />
 </template>
 <script>
 import { messaging } from "./firebaseInit";
@@ -27,7 +28,7 @@ getToken(messaging, {
       console.log("Token received: ", currentToken);
       // 处理获取到的令牌
       // 訂閱消息
-      onMessage((payload) => {
+      onMessage(messaging,(payload) => {
         console.log("Message received. ", payload);
         // 處理接收到的消息
         navigator.serviceWorker.ready.then((registration) => {
