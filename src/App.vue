@@ -1,9 +1,11 @@
 <template>
 	<h1>PWA Notification 測試</h1>
-	<button @click="_requestPermission()">開啟推播</button>
-	<button @click="_showNotification()">測試推播</button>
+	<!-- <button @click="_requestPermission()">開啟推播</button>
+	<button @click="_showNotification()">測試推播</button> -->
 	<button @click="_reload()">重新整理網頁</button>
-	<button @click="_clearCache()">清除快取</button>
+	<!-- <button @click="_clearCache()">清除快取</button> -->
+	<br />
+	<p>token{{ currentToken }}</p>
 	<br />
 	<p>頁面更新時間：{{ _refreshTime() }}</p>
 	<span v-show="_getText() != ''"
@@ -15,8 +17,11 @@
 </template>
 <script>
 import initFB from './firebase/firebaseInit';
-import { onMessage } from 'firebase/messaging';
+import { onMessage, getToken } from 'firebase/messaging';
 import registerSW from './firebase/firebaseUI';
+
+const token =
+  "BOAw5pQGmd4WaIplh_GRbO7Lz0GT3d3A8qu0v-wq5jG5SQKdWPZswUWYi5BB2Rb27U0B6Bjoi1Qt4mevxgpuhqc";
 
 export default {
   name: "App",
@@ -25,8 +30,25 @@ export default {
     const messaging = initFB()?.messaging;
     if (!('serviceWorker' in navigator)) return;
     if (Notification.permission !== 'granted') return;
-    // 重新註冊sw
+    // 註冊sw
     registerSW();
+    getToken(messaging, {
+        vapidKey: token,
+      })
+        .then((currentToken) => {
+          if (currentToken) {
+            console.log('Token received.');
+            // console.log('Token received: ', currentToken);
+            // 儲存token
+            this.currentToken = currentToken;
+          } else {
+            console.log('No registration token available. Request permission to generate one.');
+          }
+        })
+        .catch((err) => {
+          console.log('An error occurred while retrieving token. ', err);
+          // 处理可能发生的错误
+        });
     // 訂閱消息
     onMessage(messaging, (payload) => {
       console.log('Message received. ', payload);
@@ -37,6 +59,28 @@ export default {
         window.location.reload();
       });
     });
+  },
+  methods:{
+    _refreshTime() {
+      let d = new Date();
+      let h = d.getHours();
+      let m = d.getMinutes();
+      let s = d.getSeconds();
+      return h + ":" + m + ":" + s;
+    },
+    _reload() {
+      window.location.reload();
+    },
+        _getText() {
+      let params = new URL(document.location).searchParams;
+      let name = params.get("text");
+      return name ?? "";
+    },
+  },
+  data(){
+    return{
+      currentToken:""
+    }
   }
 };
 </script>
