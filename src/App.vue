@@ -5,7 +5,7 @@
 	<button @click="_reload()">重新整理網頁</button>
 	<!-- <button @click="_clearCache()">清除快取</button> -->
 	<br />
-	<p>token{{ currentToken }}</p>
+	<p>token: {{ currentToken }}</p>
 	<br />
 	<p>頁面更新時間：{{ _refreshTime() }}</p>
 	<span v-show="_getText() != ''"
@@ -29,11 +29,11 @@ export default {
   setup(){
     const messaging = initFB()?.messaging;
     if (!('serviceWorker' in navigator)) return;
-    if (Notification.permission !== 'granted') return;
     // 註冊sw
     registerSW();
+    // 請求通知權限
     getToken(messaging, {
-        vapidKey: token,
+      vapidKey: token,
       })
         .then((currentToken) => {
           if (currentToken) {
@@ -49,6 +49,7 @@ export default {
           console.log('An error occurred while retrieving token. ', err);
           // 处理可能发生的错误
         });
+    if (Notification.permission !== 'granted') return;
     // 訂閱消息
     onMessage(messaging, (payload) => {
       console.log('Message received. ', payload);
