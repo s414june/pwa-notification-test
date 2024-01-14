@@ -26,7 +26,12 @@ const token =
 export default {
   name: "App",
   components: {},
-  setup(){
+  data(){
+    return{
+      currentToken:""
+    }
+  },
+  mounted(){
     const messaging = initFB()?.messaging;
     if (!('serviceWorker' in navigator)) return;
     // 註冊sw
@@ -78,11 +83,6 @@ export default {
       return name ?? "";
     },
   },
-  data(){
-    return{
-      currentToken:""
-    }
-  }
 };
 </script>
 
