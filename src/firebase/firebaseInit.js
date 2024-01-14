@@ -9,15 +9,15 @@ export default function initFB() {
   // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   const firebaseConfig = {
-    apiKey: 'AIzaSyBUjddEpiGvIYZVrnM774AurtxODmYVTLc',
-    authDomain: 'go-house-94ee2.firebaseapp.com',
-    projectId: 'go-house-94ee2',
-    storageBucket: 'go-house-94ee2.appspot.com',
-    messagingSenderId: '175915564420',
-    appId: '1:175915564420:web:b65876099b1da54357b1d1',
-    measurementId: 'G-QZ0BWS4C4J',
+    apiKey: "AIzaSyDc7_KRggZySk2NLdlcEQGfAtOuyVC-REs",
+    authDomain: "pwa-notification-test-39b3f.firebaseapp.com",
+    projectId: "pwa-notification-test-39b3f",
+    storageBucket: "pwa-notification-test-39b3f.appspot.com",
+    messagingSenderId: "667279105190",
+    appId: "1:667279105190:web:b653b12ae2b15b4db3a867",
+    measurementId: "G-28EW5Q8N5D"
   };
-
+  
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   // eslint-disable-next-line no-unused-vars

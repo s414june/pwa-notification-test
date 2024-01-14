@@ -14,8 +14,9 @@ const firebaseConfig = {
 	storageBucket: "pwa-notification-test-39b3f.appspot.com",
 	messagingSenderId: "667279105190",
 	appId: "1:667279105190:web:b653b12ae2b15b4db3a867",
-	measurementId: "G-28EW5Q8N5D",
-};
+	measurementId: "G-28EW5Q8N5D"
+  };
+
 
 // 初始化 Firebase
 firebase.initializeApp(firebaseConfig);
