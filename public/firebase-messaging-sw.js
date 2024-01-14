@@ -21,7 +21,7 @@ const firebaseConfig = {
 // 初始化 Firebase
 firebase.initializeApp(firebaseConfig);
 
-function showNoti(data) {
+function showNoti(payload) {
 	// try {
 	// 	const data = JSON.parse(payload.data.body);
 	// 	const { title } = data;
@@ -35,6 +35,7 @@ function showNoti(data) {
 	// } catch (error) {
 	// 	console.error(error);
 	// }
+	const data = payload.notification;
 	try {
 		const title = data.title || "";
 		if (title === "") return;
