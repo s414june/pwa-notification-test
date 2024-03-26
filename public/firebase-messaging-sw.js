@@ -22,19 +22,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 function showNoti(payload) {
-	// try {
-	// 	const data = JSON.parse(payload.data.body);
-	// 	const { title } = data;
-	// 	const options = {
-	// 		type: data.type,
-	// 		body: data.content,
-	// 		icon: "/img/icons/icon-192.png",
-	// 		data,
-	// 	};
-	// 	self.registration.showNotification(title, options);
-	// } catch (error) {
-	// 	console.error(error);
-	// }
 	const data = payload.notification;
 	try {
 		const title = data.title || "";
