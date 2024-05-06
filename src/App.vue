@@ -54,7 +54,7 @@ export default {
           console.log('An error occurred while retrieving token. ', err);
           // 处理可能发生的错误
         });
-    if (Notification.permission !== 'granted') return;
+    if (!isNotify()) return;
     // 訂閱消息
     onMessage(messaging, (payload) => {
       console.log('Message received. ', payload);
@@ -84,6 +84,34 @@ export default {
     },
   },
 };
+
+
+function isNotify() {
+  // 首先讓我們確定瀏覽器支援 Notification
+  if (!("Notification" in window)) {
+    alert("這個瀏覽器不支援 Notification");
+  }
+
+  // 再檢查使用者是否已經授權執行 Notification
+  else if (Notification.permission === "granted") {
+    // 如果已經授權就可以直接新增 Notification 了!
+    return true;
+  }
+
+  // 否則，我們會需要詢問使用者是否開放權限
+  else if (Notification.permission !== "denied") {
+    Notification.requestPermission(function (permission) {
+      // 如果使用者同意了就來新增一個 Notification 打聲招呼吧
+      if (permission === "granted") {
+        return true;
+      }
+    });
+  }
+  return false;
+  // 如果使用者還是不同意授權執行 Notification
+  // 最好還是進行適當的處理以避免繼續打擾使用者
+}
+
 </script>
 
 <style>
